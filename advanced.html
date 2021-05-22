@@ -1,0 +1,303 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Solidabis koodihaaste">
+    <meta name="author" content="Petri Lahdensuu">
+    
+    <title>Solidabis koodihaaste</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  
+  <style>
+
+
+  @media (min-width: 768px) {
+    .form-group {
+      margin-top: 10px;
+      width: 33%;
+    }
+
+  }
+  .active {
+    font-weight: bold;
+    
+  }
+  td {
+    text-align: center;
+  }
+  .table_heading {
+    text-align: left;
+  }
+  </style>
+  
+  
+  
+  </head>
+<body>
+
+
+<div class="container">
+  <form id="form" class="form-inline">
+    <div class="form-group">
+      <label for="input_speed1" class="sr-only">1. Nopeus</label>
+      <div class="input-group">
+        <div class="input-group-addon">Nopeus 1</div>
+        <input type="number" name="input_speed1" id="input_speed1" value="80" class="form-control"> 
+        <div class="input-group-addon">km/h</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="input_speed1" class="sr-only">2. Nopeus</label>
+      <div class="input-group">
+        <div class="input-group-addon">Nopeus 2</div>
+        <input type="number" name="input_speed2" id="input_speed2" value="100" class="form-control"> 
+        <div class="input-group-addon">km/h</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="input_speed1" class="sr-only">Kuljettava matka</label>
+      <div class="input-group">
+        <div class="input-group-addon">Matka</div>
+        <input type="number" name="distance" id="distance" value="80" class="form-control"> 
+        <div class="input-group-addon">km</div>
+      </div>
+    </div>
+        
+    
+    <p>
+    <div>
+        <input type="submit" value="Laske" class="btn btn-primary btn-block">
+    </div>
+  </p>
+    
+  </form>
+
+  
+
+  <h2>Auto A</h2>
+  <div class="table-responsive">
+  <table class="table table-bordered">
+  <thead>
+    <tr>
+      <td class="table_heading">Nopeus <small>(km/h)</small></td>
+      <td id="car1_speed0"></td>
+      <td id="car1_speed1"></td>
+      <td id="car1_speed2" class="active"></td>
+      <td id="car1_speed3"></td>
+      <td id="car1_speed4" class="active"></td>
+      <td id="car1_speed5"></td>
+      <td id="car1_speed6"></td>
+    </tr>
+  </thead>
+  <tr>
+    <td class="table_heading">Matka-aika</td>
+    <td id="car1_time0"></td>
+    <td id="car1_time1"></td>
+    <td id="car1_time2" class="uservalues active"></td>
+    <td id="car1_time3"></td>
+    <td id="car1_time4" class="uservalues active"></td>
+    <td id="car1_time5"></td>
+    <td id="car1_time6"></td>
+  </tr>
+  <tr>
+    <td class="table_heading">Kulutus <small>(litraa)</small></td>
+    <td id="car1_consumption0"></td>
+    <td id="car1_consumption1"></td>
+    <td id="car1_consumption2" class="uservalues active"></td>
+    <td id="car1_consumption3"></td>
+    <td id="car1_consumption4" class="uservalues active"></td>
+    <td id="car1_consumption5"></td>
+    <td id="car1_consumption6"></td>
+  </tr>
+  
+  </table>
+</div>
+  <h2>Auto B</h2>
+  <div class="table-responsive">
+  <table class="table table-bordered">
+  <thead>
+  <tr>
+    <td class="table_heading">Nopeus <small>(km/h)</small></td>
+    <td id="car2_speed0"></td>
+    <td id="car2_speed1"></td>
+    <td id="car2_speed2" class="active"></td>
+    <td id="car2_speed3"></td>
+    <td id="car2_speed4" class="active"></td>
+    <td id="car2_speed5"></td>
+    <td id="car2_speed6"></td>
+  </tr>
+  </thead>
+  <tr>
+    <td class="table_heading">Matka-aika</td>
+    <td id="car2_time0"></td>
+    <td id="car2_time1"></td>
+    <td id="car2_time2" class="active"></td>
+    <td id="car2_time3"></td>
+    <td id="car2_time4" class="active"></td>
+    <td id="car2_time5"></td>
+    <td id="car2_time6"></td>
+  </tr>
+  <tr>
+    <td class="table_heading">Kulutus <small>(litraa)</small></td>
+    <td id="car2_consumption0"></td>
+    <td id="car2_consumption1"></td>
+    <td id="car2_consumption2" class="active"></td>
+    <td id="car2_consumption3"></td>
+    <td id="car2_consumption4" class="active"></td>
+    <td id="car2_consumption5"></td>
+    <td id="car2_consumption6"></td>
+  </tr>
+  
+  </table>
+  </div>
+  <h2>Auto C</h2>
+  <div class="table-responsive">
+  <table class="table table-bordered">
+  <thead>
+    <tr>
+      <td class="table_heading">Nopeus <small>(km/h)</small></td>
+      <td id="car3_speed0"></td>
+      <td id="car3_speed1"></td>
+      <td id="car3_speed2" class="active"></td>
+      <td id="car3_speed3"></td>
+      <td id="car3_speed4" class="active"></td>
+      <td id="car3_speed5"></td>
+      <td id="car3_speed6"></td>
+    </tr>
+</thead>
+  <tr>
+    <td class="table_heading">Matka-aika</td>
+    <td id="car3_time0"></td>
+    <td id="car3_time1"></td>
+    <td id="car3_time2" class="active"></td>
+    <td id="car3_time3"></td>
+    <td id="car3_time4" class="active"></td>
+    <td id="car3_time5"></td>
+    <td id="car3_time6"></td>
+  </tr>
+  <tr>
+    <td class="table_heading">Kulutus <small>(litraa)</small></td>
+    <td id="car3_consumption0"></td>
+    <td id="car3_consumption1"></td>
+    <td id="car3_consumption2" class="active"></td>
+    <td id="car3_consumption3"></td>
+    <td id="car3_consumption4" class="active"></td>
+    <td id="car3_consumption5"></td>
+    <td id="car3_consumption6"></td>
+  </tr>
+  
+  </table>
+</div>
+</div>
+
+
+
+
+
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+    <script>
+
+    //https://speedysense.com/convert-float-to-time-in-javascript/
+    function convertNumToTime(number) {
+        // Check sign of given number
+        var sign = (number >= 0) ? 1 : -1;
+
+        // Set positive value of number of sign negative
+        number = number * sign;
+
+        // Separate the int from the decimal part
+        var hour = Math.floor(number);
+        var decpart = number - hour;
+
+        var min = 1 / 60;
+        // Round to nearest minute
+        decpart = min * Math.round(decpart / min);
+
+        var minute = Math.floor(decpart * 60) + '';
+
+        // Add padding if need
+        if (minute.length < 2) {
+        minute = '0' + minute; 
+        }
+
+        // Add Sign in final result
+        sign = sign == 1 ? '' : '-';
+
+        // Concate hours and minutes
+        time = sign + hour + ':' + minute;
+
+        return time;
+    }
+
+
+
+
+
+  function populateTable() {
+  
+  let speedFields = [parseInt($('#input_speed1').val()), parseInt($('#input_speed2').val())];
+
+  // sort speeds, to make sure the lower speed is first
+  speedFields.sort(function(a, b){return a - b});
+  
+  // HTML table IDs and base comsuption, as given in the spec
+  const vehicles = [
+		{name: "Auto A", element: "car1", consumption: 0.03},
+		{name: "Auto B", element: "car2", consumption: 0.035},
+		{name: "Auto C", element: "car3", consumption: 0.04}
+	];
+  
+  // speeds to show in the results table - some below, and above the selected one for comparison
+  let speeds = [
+  	speedFields[0] - 10,
+    speedFields[0] - 5,
+    speedFields[0],
+    speedFields[0] + (speedFields[1] - speedFields[0])/2,
+    speedFields[1],
+    speedFields[1] + 5,
+    speedFields[1] + 10,
+  ];
+    
+  // loop each vehicle, and speed, and populate results table
+  vehicles.forEach((car, c_index) => {
+    speeds.forEach((spd, s_index) => {
+      
+      $("#"+car.element+"_speed"+s_index).html(spd);
+
+      let time = $("#distance").val() / spd;
+      
+      // travel time is calculated in decimal, and converted to time format
+      $("#"+car.element+"_time"+s_index).html(convertNumToTime(time));
+      
+      // 1.009 = consumption multplier gicen in the spec
+      let consumption = 1.009 ** spd * car.consumption * $("#distance").val();
+      $("#"+car.element+"_consumption"+s_index).html(consumption.toFixed(2));
+    });
+  });
+  
+}
+
+
+// results table to be populated when the form is submitted, and whe the document is loaded
+$('#form').submit(function(e) {
+	e.preventDefault();	
+  populateTable();
+});
+
+$( document ).ready(function() {
+  populateTable();
+});
+    </script>
+
+</body>
+</html>

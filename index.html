@@ -1,0 +1,252 @@
+<!doctype html>
+
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+
+  <title>Solidabis koodihaaste</title>
+  <meta name="description" content="Solidabis koodihaaste">
+  <meta name="author" content="Petri Lahdensuu">
+  
+  <style>
+    .countBtn {
+        text-align: center;
+    }
+    input {
+      width: 120px;
+    }
+
+    table {
+        margin-top: 10px;
+        border-collapse: collapse;
+    }
+
+    table.results td {
+    
+        border: 1px solid black;
+        padding: 5px;
+        text-align: center;
+        width: 50px;
+    }
+
+    
+    table.results tr:first-child {
+        background-color: lightgrey;
+        font-weight: bold;
+    }
+
+
+    .carletter {
+        font-size: 1.5em;
+        font-weight: bold;
+        border-bottom: 2px solid black !important;
+        background-color: lightgrey;
+    }
+    tr.thickerall {
+        border: 2px solid black;
+    }
+    tr.thickertop {
+        border-top: 2px solid black;
+        border-left: 2px solid black;
+        border-right: 2px solid black;
+    }
+    tr.thickerbottom {
+        border-bottom: 2px solid black !important;
+        border-left: 2px solid black;
+        border-right: 2px solid black;
+    }
+    tr.thickerbottomonly {
+        border-bottom: 2px solid black !important;
+        
+    }
+    input[type=number] {
+        padding:10px;
+        border:0;
+        border-radius:10px;
+        box-shadow:0 0 3px 1px lightgray;
+        margin: 2px;
+    }
+    input[type=submit] {
+        padding:10px;
+        border:none;
+        background-color:lightgray;
+        color: black;
+        font-weight:600;
+        border-radius:5px;
+    }
+  </style>
+
+</head>
+
+<body>
+
+<form id="form">
+  <table>
+  <tr>
+    <td>Nopeus 1 (km/h)</td>
+    <td> Nopeus 2 (km/h)</td>
+    
+  </tr>
+  <tr>
+    <td><input type="number" name="input_speed1" id="input_speed1" value="80"> </td>
+    <td><input type="number" name="input_speed2" id="input_speed2" value="100"></td>
+    
+  </tr>
+  <tr>
+    <td>Kuljettava matka (km)</td>
+    <td rowspan="2" class="countBtn">&nbsp;<input type="submit" value="Laske"></td>
+  </tr>
+  <tr>
+    <td><input type="number" name="distance" id="distance" value="100"> </td>
+    <!--td><input type="submit" value="Laske"></td-->
+  </tr>
+  </table>
+  
+  
+  
+  
+</form>
+
+<table class="results">
+<tr class="thickeralla">
+  <td colspan="2">Auto</td>
+  <td>Nopeus<br><span id="speed_header1"></span></td>
+  <td>Nopeus<br><span id="speed_header2"></span></td>
+  <td>Erotus</td>
+</tr>
+<tr class="thickertop">
+    <td class="carletter" rowspan="2">A</td>
+    <td>aika <small>(tuntia)</small></td>
+    <td id="car0-time0"></td>
+    <td id="car0-time1"></td>
+    <td id="car0-time_diff"></td>
+</tr>
+<tr class="thickerbottom">
+    <td>kulutus litraa</td>
+    <td id="car0-fuel0"></td>
+    <td id="car0-fuel1"></td>
+    <td id="car0-fuel_diff"></td>
+</tr>
+
+
+<tr>
+    <td class="carletter" rowspan="2">B</td>
+    <td>aika</td>
+    <td id="car1-time0"></td>
+    <td id="car1-time1"></td>
+    <td id="car1-time_diff"></td>
+</tr>
+<tr>
+    <td>kulutus</td>
+    <td id="car1-fuel0"></td>
+    <td id="car1-fuel1"></td>
+    <td id="car1-fuel_diff"></td>
+</tr>
+
+
+<tr class="thickertop">
+    <td class="carletter" rowspan="2">C</td>
+    <td>aika</td>
+    <td id="car2-time0"></td>
+    <td id="car2-time1"></td>
+    <td id="car2-time_diff"></td>
+</tr>
+<tr class="thickerbottom">
+    <td>kulutus</td>
+    <td id="car2-fuel0"></td>
+    <td id="car2-fuel1"></td>
+    <td id="car2-fuel_diff"></td>
+</tr>
+
+<script>
+//https://speedysense.com/convert-float-to-time-in-javascript/
+function convertNumToTime(number) {
+    // Check sign of given number
+    var sign = (number >= 0) ? 1 : -1;
+
+    // Set positive value of number of sign negative
+    number = number * sign;
+
+    // Separate the int from the decimal part
+    var hour = Math.floor(number);
+    var decpart = number - hour;
+
+    var min = 1 / 60;
+    // Round to nearest minute
+    decpart = min * Math.round(decpart / min);
+
+    var minute = Math.floor(decpart * 60) + '';
+
+    // Add padding if need
+    if (minute.length < 2) {
+    minute = '0' + minute; 
+    }
+
+    // Add Sign in final result
+    sign = sign == 1 ? '' : '-';
+
+    // Concate hours and minutes
+    time = sign + hour + ':' + minute;
+
+    return time;
+}
+
+function populateTable() {
+    
+    let distance = parseInt(document.getElementById("distance").value);
+
+    let speedFields = [
+        parseInt(document.getElementById("input_speed1").value),
+        parseInt(document.getElementById("input_speed2").value)
+    ];   
+    
+    // make sure the smaller numer is shown first
+    speedFields.sort(function(a, b){return a - b});
+    
+    // show speeds in the header
+    document.getElementById("speed_header1").innerHTML = speedFields[0];
+    document.getElementById("speed_header2").innerHTML = speedFields[1];
+    
+    // fuel consumption per km, of the three cars, given in specs
+    const carConsumption = [0.03, 0.035, 0.04];
+    
+    carConsumption.forEach((consumption, index) => {
+        
+        // 1.009 = fuel comsumption growth multiplier, given in specs
+        let fuelEconomy = [
+            1.009 ** speedFields[0] * consumption * distance,
+            1.009 ** speedFields[1] * consumption * distance
+        ];
+        
+        let travelTime = [
+            distance / speedFields[0],
+            distance / speedFields[1]
+        ];
+        
+        // populate fuel comsumption cells of the table, two decimal place precision
+        document.getElementById("car"+index+"-fuel0").innerHTML = fuelEconomy[0].toFixed(2);
+        document.getElementById("car"+index+"-fuel1").innerHTML = fuelEconomy[1].toFixed(2);
+        document.getElementById("car"+index+"-fuel_diff").innerHTML = (fuelEconomy[1]-fuelEconomy[0]).toFixed(2);
+        // populate travel time cells, concerting times to x:xx format
+        document.getElementById("car"+index+"-time0").innerHTML = convertNumToTime(travelTime[0]);
+        document.getElementById("car"+index+"-time1").innerHTML = convertNumToTime(travelTime[1]);
+        document.getElementById("car"+index+"-time_diff").innerHTML = convertNumToTime(travelTime[1]-travelTime[0]);
+    });
+
+    
+  }
+  
+  // call function to calculate results, when the page loads, or when form submitted
+  document.querySelector("#form").addEventListener("submit", function(e){
+    e.preventDefault();	
+    populateTable();
+  });
+  
+  (function() {
+    populateTable();
+  })();
+
+</script>
+
+</body>
+</html>

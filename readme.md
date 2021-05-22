@@ -1,0 +1,2 @@
+# solidabis-challenge
+ Solidabis koodihaaste
